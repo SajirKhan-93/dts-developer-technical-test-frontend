@@ -1,0 +1,52 @@
+{
+  "name": "hmcts-dev-test-frontend-own",
+  "version": "0.0.0",
+  "description": "Server-side rendered GOV.UK frontend for HMCTS caseworker task management (HapiJS, Nunjucks).",
+  "main": "src/index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon --ext js,json,njk --watch ./src --env-file-if-exists=.env ./src",
+    "start": "cross-env NODE_ENV=production node --env-file-if-exists=.env .",
+    "format": "prettier --write \"**/*.{cjs,js,json,md}\"",
+    "format:check": "prettier --check \"**/*.{cjs,js,json,md}\"",
+    "lint": "eslint --cache --cache-strategy content \"**/*.{cjs,js}\"",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "cross-env NODE_ENV=test TZ=UTC vitest run --coverage",
+    "test:watch": "cross-env NODE_ENV=test TZ=UTC vitest"
+  },
+  "license": "OGL-UK-3.0",
+  "dependencies": {
+    "@hapi/crumb": "9.0.1",
+    "@hapi/hapi": "21.4.10",
+    "@hapi/inert": "7.1.2",
+    "@hapi/vision": "7.0.3",
+    "@hapi/yar": "11.0.3",
+    "convict": "6.2.5",
+    "convict-format-with-validator": "6.2.0",
+    "govuk-frontend": "6.4.0",
+    "hapi-pino": "13.0.0",
+    "joi": "18.2.3",
+    "nunjucks": "3.2.4",
+    "pino": "10.3.1",
+    "pino-pretty": "13.1.3"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "4.1.10",
+    "cheerio": "1.2.0",
+    "cross-env": "10.1.0",
+    "eslint": "9.39.4",
+    "neostandard": "0.13.0",
+    "nodemon": "3.1.14",
+    "prettier": "3.9.6",
+    "vitest": "4.1.10"
+  },
+  "overrides": {
+    "hapi-pino": {
+      "pino": "$pino"
+    },
+    "joi": "$joi"
+  }
+}

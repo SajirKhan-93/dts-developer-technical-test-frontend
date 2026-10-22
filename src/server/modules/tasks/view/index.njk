@@ -1,0 +1,65 @@
+{% extends 'layouts/page.njk' %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+
+{% block pageTitle %}{% if errorList.length %}Error: {% endif %}{{ task.title }} - {{ serviceName }}{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({ text: t('common.back_to_tasks'), href: "/" }) }}
+{% endblock %}
+
+{% block content %}
+  {% include "partials/error-summary.njk" %}
+
+  {% if notice %}
+    {{ govukNotificationBanner({ type: "success", text: notice }) }}
+  {% endif %}
+
+  <h1 class="govuk-heading-xl">{{ task.title }}</h1>
+
+  {% set statusTag %}
+    {{ govukTag({ text: t('tasks.status.' + task.status), classes: TASK_STATUS_TAG_CLASS[task.status] }) }}
+    {% if task.overdue %}<strong class="govuk-tag govuk-tag--red">{{ t('common.overdue') }}</strong>{% endif %}
+  {% endset %}
+
+  {{ govukSummaryList({
+    rows: [
+      {
+        key: { text: t('tasks.view.description') },
+        value: { text: task.description or t('tasks.view.no_description') }
+      },
+      {
+        key: { text: t('tasks.view.due') },
+        value: { text: task.dueDateTime | formatDateTime }
+      },
+      {
+        key: { text: t('tasks.view.status') },
+        value: { html: statusTag }
+      }
+    ]
+  }) }}
+
+  <form method="post" action="/tasks/{{ task.id }}/status" novalidate>
+    <input type="hidden" name="crumb" value="{{ crumb }}">
+
+    {{ govukSelect({
+      id: "status",
+      name: "status",
+      label: { text: t('tasks.view.update_status_label'), classes: "govuk-label--m" },
+      items: statusItems,
+      errorMessage: fieldErrors.status
+    }) }}
+
+    {{ govukButton({ text: t('tasks.view.update_status_button') }) }}
+  </form>
+
+  {{ govukButton({
+    text: t('tasks.view.delete_button'),
+    href: "/tasks/" + task.id + "/delete",
+    classes: "govuk-button--warning"
+  }) }}
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'layouts/page.njk' %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block pageTitle %}{% if errorList.length %}Error: {% endif %}{{ t('tasks.create.check_answers.page_title') }} - {{ serviceName }}{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({ text: t('common.back'), href: backLink }) }}
+{% endblock %}
+
+{% block content %}
+  {% include "partials/error-summary.njk" %}
+
+  <h1 class="govuk-heading-xl">{{ t('tasks.create.check_answers.heading') }}</h1>
+
+  {{ govukSummaryList({
+    rows: [
+      {
+        key: { text: t('tasks.create.check_answers.title') },
+        value: { text: answers.title },
+        actions: { items: [{ href: changeLinks.title, text: t('tasks.create.check_answers.change'), visuallyHiddenText: t('tasks.create.check_answers.title') | lower }] }
+      },
+      {
+        key: { text: t('tasks.create.check_answers.description') },
+        value: { text: answers.description or t('tasks.create.check_answers.no_description') },
+        actions: { items: [{ href: changeLinks.description, text: t('tasks.create.check_answers.change'), visuallyHiddenText: t('tasks.create.check_answers.description') | lower }] }
+      },
+      {
+        key: { text: t('tasks.create.check_answers.status') },
+        value: { text: t('tasks.status.' + answers.status) },
+        actions: { items: [{ href: changeLinks.status, text: t('tasks.create.check_answers.change'), visuallyHiddenText: t('tasks.create.check_answers.status') | lower }] }
+      },
+      {
+        key: { text: t('tasks.create.check_answers.due') },
+        value: { text: answers.dueDateTime | formatDateTime },
+        actions: { items: [{ href: changeLinks.dueDateTime, text: t('tasks.create.check_answers.change'), visuallyHiddenText: t('tasks.create.check_answers.due') | lower }] }
+      }
+    ]
+  }) }}
+
+  <form method="post" novalidate>
+    <input type="hidden" name="crumb" value="{{ crumb }}">
+    {{ govukButton({ text: t('tasks.create.check_answers.submit') }) }}
+  </form>
+{% endblock %}

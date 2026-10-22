@@ -1,0 +1,25 @@
+{% extends "govuk/template.njk" %}
+
+{# Import GOVUK components globally #}
+{% from "govuk/components/header/macro.njk" import govukHeader %}
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% block pageTitle %}{{ serviceName }}{% endblock %}
+
+{% block head %}
+  <link href="/public/govuk-frontend.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block header %}
+  {{ govukHeader({ homepageUrl: "https://www.gov.uk/" }) }}
+  {{ govukServiceNavigation({ serviceName: serviceName, serviceUrl: serviceUrl }) }}
+{% endblock %}
+
+{% block bodyEnd %}
+  <script type="module" src="/public/govuk-frontend.min.js"></script>
+  <script type="module">
+    import { initAll } from '/public/govuk-frontend.min.js'
+    initAll()
+  </script>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'layouts/page.njk' %}
+
+{% block pageTitle %}{{ pageTitle }} - {{ serviceName }}{% endblock %}
+
+{% block content %}
+  <h1 class="govuk-heading-xl">{{ message }}</h1>
+  <p class="govuk-body">{{ detail or t('common.try_again_later') }}</p>
+  <p class="govuk-body"><a class="govuk-link" href="/">{{ t('common.back_to_tasks') }}</a></p>
+{% endblock %}

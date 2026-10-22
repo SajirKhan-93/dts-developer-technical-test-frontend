@@ -1,0 +1,46 @@
+{% extends 'layouts/page.njk' %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block pageTitle %}{% if errorList.length %}Error: {% endif %}{{ t('tasks.create.due_date.page_title') }} - {{ serviceName }}{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({ text: t('common.back'), href: backLink }) }}
+{% endblock %}
+
+{% block content %}
+  {% include "partials/error-summary.njk" %}
+
+  <form method="post" novalidate>
+    <input type="hidden" name="crumb" value="{{ crumb }}">
+
+    <h1 class="govuk-heading-xl">{{ t('tasks.create.due_date.heading') }}</h1>
+
+    {% set dateErrorClass = " govuk-input--error" if fieldErrors.dueDate else "" %}
+    {{ govukDateInput({
+      id: "dueDate",
+      namePrefix: "dueDate",
+      fieldset: { legend: { text: t('tasks.create.due_date.date_label'), classes: "govuk-fieldset__legend--m" } },
+      hint: { text: t('tasks.create.due_date.date_hint') },
+      errorMessage: fieldErrors.dueDate,
+      items: [
+        { name: "day", classes: "govuk-input--width-2" + dateErrorClass, value: formData['dueDate-day'] },
+        { name: "month", classes: "govuk-input--width-2" + dateErrorClass, value: formData['dueDate-month'] },
+        { name: "year", classes: "govuk-input--width-4" + dateErrorClass, value: formData['dueDate-year'] }
+      ]
+    }) }}
+
+    {{ govukInput({
+      id: "dueTime",
+      name: "dueTime",
+      label: { text: t('tasks.create.due_date.time_label'), classes: "govuk-label--m" },
+      hint: { text: t('tasks.create.due_date.time_hint') },
+      classes: "govuk-input--width-5",
+      value: formData.dueTime,
+      errorMessage: fieldErrors.dueTime
+    }) }}
+
+    {{ govukButton({ text: t('tasks.create.continue') }) }}
+  </form>
+{% endblock %}

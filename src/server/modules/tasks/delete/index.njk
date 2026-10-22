@@ -1,0 +1,27 @@
+{% extends 'layouts/page.njk' %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% block pageTitle %}{{ t('tasks.delete.page_title') }} - {{ serviceName }}{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({ text: t('common.back'), href: "/tasks/" + task.id }) }}
+{% endblock %}
+
+{% block content %}
+  <h1 class="govuk-heading-xl">{{ t('tasks.delete.heading') }}</h1>
+
+  <p class="govuk-body"><strong>{{ task.title }}</strong>, {{ t('tasks.view.due') | lower }} {{ task.dueDateTime | formatDateTime }}</p>
+
+  {{ govukWarningText({
+    text: t('tasks.delete.warning'),
+    iconFallbackText: t('tasks.delete.warning_fallback')
+  }) }}
+
+  <form method="post" novalidate>
+    <input type="hidden" name="crumb" value="{{ crumb }}">
+    {{ govukButton({ text: t('tasks.delete.confirm_button'), classes: "govuk-button--warning" }) }}
+    <p class="govuk-body"><a class="govuk-link" href="/tasks/{{ task.id }}">{{ t('tasks.delete.cancel') }}</a></p>
+  </form>
+{% endblock %}
