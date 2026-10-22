@@ -1,6 +1,6 @@
 # HMCTS Task Manager - Frontend (HapiJS + Nunjucks)
 
-A server-side rendered GOV.UK Design System frontend for caseworker tasks, written in the same style as `pafs-portal-frontend`: Hapi plugins per page (`modules/<feature>/<page>/{index.js,controller.js,index.njk}`), Nunjucks layouts, Joi form validation, `@hapi/crumb` CSRF protection, `@hapi/yar` session flash messages, convict config, pino logging, Vitest tests.
+A server-side rendered GOV.UK Design System frontend for caseworker tasks: Hapi plugins per page (`modules/<feature>/<page>/{index.js,controller.js,index.njk}`), Nunjucks layouts, Joi form validation, `@hapi/crumb` CSRF protection, `@hapi/yar` session flash messages, convict config, pino logging, Vitest tests.
 
 Runs on **http://localhost:3000** and calls the backend at `http://localhost:3001`.
 
@@ -66,7 +66,7 @@ Production mode: `npm start`.
 | `GET/POST /tasks/{id}/delete`       | Delete confirmation, then delete                                      |
 | `GET /health`                       | Health check                                                          |
 
-Creating a task is a journey with one question per page, as in PAFS. Answers are kept in the session (`@hapi/yar`, stored on the server) until the task is created. A page reached before its earlier questions are answered redirects to the first unanswered one. The Change links on the check answers page add `?from=check-answers`, so saving an answer returns there instead of continuing the journey.
+Creating a task is a journey with one question per page. Answers are kept in the session (`@hapi/yar`, stored on the server) until the task is created. A page reached before its earlier questions are answered redirects to the first unanswered one. The Change links on the check answers page add `?from=check-answers`, so saving an answer returns there instead of continuing the journey.
 
 The list searches titles (case-insensitive, "contains") and shows every matching task, newest created first. The search box is the same width as the title box.
 
@@ -75,8 +75,8 @@ The list searches titles (case-insensitive, "contains") and shows every matching
 - `src/server/modules/tasks/*` - one Hapi plugin per page. Routes are listed in `src/server/router.js`.
 - `src/server/common/services/task/task-service.js` - calls the backend with `fetch` and always returns `{ success, status, data | errors | validationErrors }`, so controllers never handle thrown network errors.
 - Forms are validated here first (`modules/tasks/schema.js`, `common/helpers/due-date.js`); errors from the backend (`validationErrors`) are mapped back onto the same fields. Both use error codes that are turned into text in `src/server/common/locales/en.js`.
-- GOV.UK Frontend CSS, JS, fonts and images are served straight from `node_modules` (`/public`, `/assets`), so there is no asset build step (PAFS builds them with Vite).
-- Not included from PAFS: authentication, Redis session cache, content security policy, i18n library, metrics.
+- GOV.UK Frontend CSS, JS, fonts and images are served straight from `node_modules` (`/public`, `/assets`), so there is no asset build step.
+- Not included: authentication, Redis session cache, content security policy, i18n library, metrics.
 
 ## Tests
 
@@ -88,4 +88,4 @@ npm run format:check
 
 `src/server/server.test.js` drives the whole app through `server.inject` (CSRF tokens, redirects, flash message, errors).
 
-Tests sit next to the file they test, as in PAFS: a `controller.test.js` and `index.test.js` for every page module, plus tests for the journey helpers, schemas, task service, error handling, config, filters and the router. Controller tests mock the backend service and Hapi's `h` toolkit (`src/server/common/test-helpers/hapi-mocks.js`).
+Tests sit next to the file they test: a `controller.test.js` and `index.test.js` for every page module, plus tests for the journey helpers, schemas, task service, error handling, config, filters and the router. Controller tests mock the backend service and Hapi's `h` toolkit (`src/server/common/test-helpers/hapi-mocks.js`).
