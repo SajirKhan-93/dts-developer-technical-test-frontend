@@ -96,20 +96,26 @@ Tests sit next to the file they test: a `controller.test.js` and `index.test.js`
 
 ### Task list
 
-_Screenshot to be added._
+<img width="957" height="949" alt="image" src="https://github.com/user-attachments/assets/474bd3b2-a8a9-4ac0-97d5-874efc70d31d" />
 
 ### Create a task
 
-_Screenshot to be added._
+<img width="715" height="391" alt="image" src="https://github.com/user-attachments/assets/e5689e02-dc1d-4fbe-a3e4-0dd13962c521" />
+<img width="820" height="471" alt="image" src="https://github.com/user-attachments/assets/19a6431a-744b-4423-9b0f-12c816f944f5" />
+<img width="632" height="440" alt="image" src="https://github.com/user-attachments/assets/d97e0ad6-fe8a-4f21-bab4-091f62d1c7f3" />
+<img width="467" height="585" alt="image" src="https://github.com/user-attachments/assets/86785398-ed01-4ed8-86cb-da4f1cae981f" />
 
 ### Check answers
 
-_Screenshot to be added._
+<img width="818" height="493" alt="image" src="https://github.com/user-attachments/assets/b886bb6f-d1c3-491c-b5f0-b290690e8941" />
 
 ### View and update a task
 
-_Screenshot to be added._
+<img width="807" height="591" alt="image" src="https://github.com/user-attachments/assets/49757022-b555-4f40-826b-db559a2bbba3" />
 
 ### Delete a task
 
-_Screenshot to be added._
+<img width="452" height="454" alt="image" src="https://github.com/user-attachments/assets/a2554ef5-3a80-48ff-a2b2-2c3357a3a0bc" />
+
+
+
