@@ -9,7 +9,7 @@ Runs on **http://localhost:3000** and calls the backend at `http://localhost:300
 The frontend has no database; it only needs Node.js and a running backend.
 
 1. **Install Node.js 24 or newer** from https://nodejs.org (check with `node -v`).
-2. **Set up and start the backend** (`hmcts-dev-test-backend-own`) first. Its README explains how to install PostgreSQL, create the database and start it. It must be running on http://localhost:3001.
+2. **Set up and start the backend** ([dts-developer-technical-test-backend](https://github.com/SajirKhan-93/dts-developer-technical-test-backend)) first. Its README explains how to install PostgreSQL, create the database and start it. It must be running on http://localhost:3001.
 3. **Install the dependencies** (in this folder): `npm install`
 4. **Start the frontend** as described below, then open http://localhost:3000.
 
@@ -23,11 +23,13 @@ Tests need none of this: `npm test` mocks the backend.
 
 ## Run it
 
-Requires Node 24+ (`.nvmrc`). Start `hmcts-dev-test-backend-own` first.
+Requires Node 24+ (`.nvmrc`). Start the backend first.
 
 ### From VS Code (recommended)
 
-Open this folder in VS Code (or the parent `Code Challenge` folder, which has the same launch settings), run `npm install` once, then open **Run and Debug** and start **Frontend: run (port 3000)** (F5). Its settings are in `.vscode/launch.json`. Breakpoints work, and **Frontend: run tests** is there too. To start the backend and frontend together, open the parent `Code Challenge` folder (or `hmcts-own.code-workspace`) and run **Backend + Frontend** (replace `DB_PASSWORD` in the backend settings first).
+The `.vscode` folder is provided for convenience. The settings in `.vscode/launch.json` are examples from the author's machine and **must be changed to match your local setup** before you use them, for example `PORT` and `BACKEND_API_URL` (which must point at the host and port your backend is running on).
+
+Open this folder in VS Code, run `npm install` once, then open **Run and Debug** and start **Frontend: run (port 3000)** (F5). Breakpoints work, and **Frontend: run tests** is there too.
 
 If VS Code uses an old Node version, restart it so it picks up Node 24.
 
@@ -89,3 +91,25 @@ npm run format:check
 `src/server/server.test.js` drives the whole app through `server.inject` (CSRF tokens, redirects, flash message, errors).
 
 Tests sit next to the file they test: a `controller.test.js` and `index.test.js` for every page module, plus tests for the journey helpers, schemas, task service, error handling, config, filters and the router. Controller tests mock the backend service and Hapi's `h` toolkit (`src/server/common/test-helpers/hapi-mocks.js`).
+
+## Screenshots
+
+### Task list
+
+_Screenshot to be added._
+
+### Create a task
+
+_Screenshot to be added._
+
+### Check answers
+
+_Screenshot to be added._
+
+### View and update a task
+
+_Screenshot to be added._
+
+### Delete a task
+
+_Screenshot to be added._
